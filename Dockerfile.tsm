@@ -41,17 +41,14 @@ RUN mkdir /my_files
 COPY config_mod.cmake /my_files
 RUN  apt install -y --force-yes llvm
 RUN git clone https://github.com/apache/incubator-tvm.git
-#RUN cd incubator-tvm
 WORKDIR incubator-tvm
 RUN pwd
 RUN git submodule update --init
 RUN mkdir build
-#RUN cd build
 WORKDIR build
 RUN cp ../../my_files/config_mod.cmake config.cmake
 RUN cmake ..
 RUN make -j4
-#RUN cd ..
 WORKDIR ..
 RUN cd python; sudo python3 setup.py install; cd ..
 RUN cd topi/python; sudo python3 setup.py install; cd ../../../
